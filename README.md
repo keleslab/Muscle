@@ -28,7 +28,10 @@ cd /Users/kwangmoonpark/Muscle/code/wrapper/
 ```
 Before running **Muscle.sh** file, change two configuration files in **wrapper** directory: **config_file_preprocess.R**, **config_file_model.R**, which contain aruments and hyperparameters for running Muscle.
 
-For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The [Muscle directory] is going to be the directory that you cloned the Muscle.e.g., /Users/kwangmoonpark/Muscle.
+For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle.
+
+In case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set **ssh='server01,server02'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
+
 
 ```
 #number of chromosomes (23(Human) or 20(Mouse))
@@ -36,10 +39,10 @@ chr_num=20
 
 
 #directory of the data
-dir_data="[Muscle directory]/data/example"
+dir_data="{Muscle directory}/data/example"
 
 #directory of the functions
-dir_functions="[Muscle directory]/code/functions"
+dir_functions="{Muscle directory}/code/functions"
 
 
 #Initial maximum rank of SVD of HiC
