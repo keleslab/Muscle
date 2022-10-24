@@ -6,7 +6,7 @@
 dir_data="/storage08/kwangmoon/Muscle/data/example"
 
 #Directory of functions
-dir_functions="/storage08/kwangmoon/Muscle/code"
+dir_functions="/storage08/kwangmoon/Muscle/code/functions"
 
 #Directory where Muscle output goes into
 dir_out="/storage08/kwangmoon/Muscle/results/Li2019"
