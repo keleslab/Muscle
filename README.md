@@ -34,7 +34,8 @@ Before running **Muscle.sh** file, change two configuration files in **wrapper**
 
 
 - b. For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle. In case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set ssh argument such as **ssh='server01,server02,server03'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
-- 
+
+
 
 
 ```
