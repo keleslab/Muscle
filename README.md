@@ -4,3 +4,16 @@
 ## Muscle Usage
 
 ### 1. Preparation
+
+git clone git@github.com:keleslab/Muscle.git
+
+-   R: [R installation](https://www.r-project.org)  (>=4.2.1)
+-   parallel (Not required, but highly recommended)
+
+#### 1. Required R packages
+
+```
+install.packages('pacman')
+pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,foreach,inline,parallel,doParallel,RSpectra,qs)
+```
+
