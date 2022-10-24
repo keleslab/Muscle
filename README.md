@@ -28,7 +28,7 @@ cd /Users/kwangmoonpark/Muscle/code/wrapper/
 ```
 Before running **Muscle.sh** file, change two configuration files in **wrapper** directory: **config_file_preprocess.R**, **config_file_model.R**, which contain aruments and hyperparameters for running Muscle.
 
-For **config_file_preprocess.R**, 
+For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The [Muscle directory] is going to be the directory that you cloned the Muscle.e.g., /Users/kwangmoonpark/Muscle.
 
 ```
 #number of chromosomes (23(Human) or 20(Mouse))
