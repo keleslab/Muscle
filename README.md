@@ -23,16 +23,18 @@ This section gives instruction for running the example [Li et al. 2019 data](htt
 
 
 
-First change directory to **wrapper** as below.
+- a. First change directory to **wrapper** as below in terminal.
 
 ```
 cd /Users/kwangmoonpark/Muscle/code/wrapper/
 ```
+
+
 Before running **Muscle.sh** file, change two configuration files in **wrapper** directory: **config_file_preprocess.R**, **config_file_model.R**, which contain aruments and hyperparameters for running Muscle.
 
-For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle.
 
-In case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set ssh argument such as **ssh='server01,server02,server03'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
+- b. For **config_file_preprocess.R**, only change **dir_data** and **dir_functions**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle. In case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set ssh argument such as **ssh='server01,server02,server03'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
+- 
 
 
 ```
@@ -71,9 +73,10 @@ sizefile='mm9.chrom.sizes'
 
 
 
-For **config_file_model.R**, only change **dir_data**,**dir_functions**, **dir_out**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle.
+- c. For **config_file_model.R**, only change **dir_data**,**dir_functions**, **dir_out**. The {Muscle directory} is going to be the directory that you cloned the Muscle. e.g., {Muscle directory} can be /Users/kwangmoonpark/Muscle. Similar to **config_file_preprocess.R** file, in case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set ssh argument such as **ssh='server01,server02,server03'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
 
-Similar to **config_file_preprocess.R** file, in case **parallel** does not exist, one can set **GNU=FALSE**. Moreover, if multiple servers are available for GNU parallel, one can set ssh argument such as **ssh='server01,server02,server03'**. Note that **ssh=NULL** should be used when **parallel** does not exist.
+
+
 
 
 ```
@@ -124,3 +127,13 @@ ssh=NULL
 ```
 
 
+
+
+- d. Now, run Muscle as below in terminal. Note that the directory should be **/{Muscle directory}/code/wrapper**
+
+
+
+
+```
+bash Muscle.sh
+```
