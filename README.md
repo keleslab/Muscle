@@ -137,3 +137,15 @@ ssh=NULL
 ```
 bash Muscle.sh
 ```
+
+
+
+- e. After running Muscle one should choose ranks of Hi-C data and mCG methylation matrix. Type the rank and hit enter. Muscle provides eigen value trace plots 'svd_plot.pdf' and 'svd_mCG_plot.pdf'. We recommend to choose rank for each data as the elbow point of the plot. For our analysis R=15 for scHi-C and R=10 for methylation matrix. The questions will be like
+
+
+```
+Please specify the rank value based on the singular value 'svd_plot.pdf' and hit enter (skipping will give rank=30) : 15
+
+Please specify the mCG matrix rank value based on the singular value 'svd_mCG_plot.pdf' and hit enter (skipping will give rank=30) : 10
+
+```
