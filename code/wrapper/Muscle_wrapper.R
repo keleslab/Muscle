@@ -43,6 +43,15 @@ pacman::p_load(Rcpp,RSpectra,qs,RColorBrewer)
 # dir_functions=paste0(dir,"/code/functions")
 # dir_out=paste0(dir,"/R_analysis_result/example")
 
+system(paste0("mkdir -p ",dir_out))
+
+#Rank of HiC tensors
+Rank=as.numeric(readRDS(paste0(dir_data,'/Rank.rds')))
+# number of chromosomes(human:23, mouse:20)
+chr_num=as.numeric(readRDS(paste0(dir_data,'/chr_num.rds')))
+
+
+
 source(paste0(dir_functions,'/Muscle_functions.R'))
 
 invisible(capture.output(sourceCpp(paste0(dir_functions,'/multiply.cpp')), type = "message"))

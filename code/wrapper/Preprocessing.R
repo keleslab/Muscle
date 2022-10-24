@@ -226,7 +226,14 @@ print("Generating tensors...")
 
 which.chrs=paste0(c(1:chr_num),collapse =  " ")
  
- 
-if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: tensor_generator.R ::: ', which.chrs,' ::: ',dir_data," ::: ",dir_functions," ::: ",chr_num," ::: ",sizefile))
-if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: tensor_generator.R ::: ', which.chrs,' ::: ',dir_data," ::: ",dir_functions," ::: ",chr_num," ::: ",sizefile))
-
+if(GNU==TRUE){
+  if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: tensor_generator.R ::: ', which.chrs,' ::: ',dir_data," ::: ",dir_functions," ::: ",chr_num," ::: ",sizefile))
+  if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: tensor_generator.R ::: ', which.chrs,' ::: ',dir_data," ::: ",dir_functions," ::: ",chr_num," ::: ",sizefile))
+} 
+if(GNU!=TRUE){
+  for(chr in 1:chr_num){
+    
+    system(paste0('cd ',dir_functions,"; Rscript --vanilla tensor_generator.R ",chr,' ',' ',dir_data,' ',dir_functions,' ',chr_num,' ',sizefile))
+  }
+  
+}

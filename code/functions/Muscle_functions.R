@@ -193,7 +193,7 @@ hosvd_new <- function(tnsr,ranks=NULL){
 ######
 #JBTD#
 ######
-rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,chr_num,modality,ssh="NULL"){
+rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,chr_num,modality,ssh="NULL",GNU=TRUE){
   R=1
   Lr_list=as.list(LR)
   
@@ -234,10 +234,11 @@ rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,ch
   
   ########################
   
-  
-  if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
-  if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
-  
+  if(GNU==TRUE){
+    if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
+    if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
+    }
+
   
   
   for(chr in 1:chr_num){
@@ -406,8 +407,10 @@ rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,ch
     }
     
     #update mode A and B(symmetric)    
-    if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
-    if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
+    if(GNU==TRUE){
+      if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
+      if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
+    }
     
     
     for(chr in 1:chr_num){
