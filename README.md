@@ -25,5 +25,5 @@ First change directory to wrapper as below.
 ```
 cd /Users/kwangmoonpark/Muscle/code/wrapper/
 ```
-Before running **Muscle.sh** file, 
+Before running **Muscle.sh** file, change two configuration files in wrapper directory 
 
