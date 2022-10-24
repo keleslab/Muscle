@@ -19,7 +19,7 @@ pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,foreach,inline,parallel,d
 
 
 #### 2. Quick start
-This section gives instruction for running the example [Li \textit{et al.} 2019 data]{https://www.nature.com/articles/s41592-019-0502-z} 
+This section gives instruction for running the example [Li \textit{et al.} 2019 data](https://www.nature.com/articles/s41592-019-0502-z) 
 First change directory to **wrapper** as below.
 
 ```
