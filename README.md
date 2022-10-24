@@ -130,7 +130,7 @@ ssh=NULL
 
 
 
-- d. Now, run Muscle as below in terminal. Note that the directory should be **/{Muscle directory}/code/wrapper**
+- d. Now, run Muscle as below in terminal. Note that the directory should be **/{Muscle directory}/code/wrapper**.
 
 
 
