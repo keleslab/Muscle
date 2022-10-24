@@ -20,10 +20,13 @@ pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,foreach,inline,parallel,d
 
 #### 2. Quick start
 
-First change directory to wrapper as below.
+First change directory to **wrapper** as below.
 
 ```
 cd /Users/kwangmoonpark/Muscle/code/wrapper/
 ```
-Before running **Muscle.sh** file, change two configuration files in wrapper directory 
+Before running **Muscle.sh** file, change two configuration files in **wrapper** directory: **config_file_preprocess.R**, **Muscle_wrapper.R**, which contain aruments and hyperparameters for running Muscle.
+
+
+
 
