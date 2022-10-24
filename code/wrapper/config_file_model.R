@@ -2,7 +2,7 @@
 
 
 
-#Directory of data: The directory should contain hic_df.rds and chrom.sizes file.
+#Directory of data: The directory should contain hic_df.qs and chrom.sizes file.
 dir_data="/storage08/kwangmoon/Muscle/data/example"
 
 #Directory of functions
