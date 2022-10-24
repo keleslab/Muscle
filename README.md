@@ -17,3 +17,13 @@ install.packages('pacman')
 pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,foreach,inline,parallel,doParallel,RSpectra,qs)
 ```
 
+
+#### 2. Quick start
+
+First change directory to wrapper as below.
+
+```
+cd /Users/kwangmoonpark/Muscle/code/wrapper/
+```
+Before running **Muscle.sh** file, 
+
