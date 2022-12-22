@@ -34,7 +34,7 @@ setwd(dir_data)
 
 saveRDS(chr_num,paste0(dir_data,'/chr_num.rds'))
 
-pacman::p_load(RSpectra,qs,reshape2,dplyr,rTensor,Matrix,data.table)
+pacman::p_load(RSpectra,qs,reshape2,tidyverse,rTensor,Matrix,data.table,gtools)
 options(scipen = 4)
 
 
@@ -46,7 +46,7 @@ mean_thres = 0
 var_thres = 0
 band_select = "all"
 
-
+hic_df<-hic_df%>%mutate(diag=binB-binA)
 
 n = length(unique(hic_df$cell))
 setDT(hic_df)
@@ -77,8 +77,8 @@ for (i in 1:length(cell_names)) {
   input_mat[i, ] = output_cell$count
 }
 
-
-
+rm(temp)
+rm(output_cell)
 
 # qs::qsave(input_mat,'longform_hic.qs')
 qs::qsave(summarized_hic,'summarized_hic.qs')
@@ -90,7 +90,8 @@ qs::qsave(summarized_hic,'summarized_hic.qs')
 
 
 svd_res=RSpectra::svds(input_mat,k = exploration_rank)
-
+#qs::qsave( svd_res,paste0(dir_data,'/svd_res_raw.qs'))
+# svd_res=qs::qread(paste0(dir_data,'/svd_res_raw.qs'))
 
 nn_sv=svd_res$d[svd_res$d>0]
 (nn_sv ) %>% log %>% plot
@@ -117,10 +118,6 @@ cat(Rank, "\n")
 
 
 
-#Rank=readline("Please specify the rank value based on the singular value plot pdf and hit enter (skipping will give rank=30) : ");print(Rank)
-
-
-#qs::qsave(svd_res,"svd_res_raw_Li2019_rankfull.qs")
 #check rank truncation first
 if(is.na(Rank)){Rank=30}
 saveRDS(Rank,paste0(dir_data,'/Rank.rds'))
@@ -135,38 +132,42 @@ saveRDS(Rank,paste0(dir_data,'/Rank.rds'))
 
 
 # 
-# summarized_hic=qs::qread('summarized_hic_Li2019.qs')
-# svd_res=qs::qread("svd_res_raw_Li2019_rankfull.qs")
+# summarized_hic=qs::qread('summarized_hic.qs')
+
 
 
 svd_fitted=svd_res$u[,1:Rank]%*%diag(svd_res$d[1:Rank])%*%t(svd_res$v[,1:Rank])
-
+rm(svd_res)
 if(only_zero_entries==TRUE){input_mat[input_mat==0]=svd_fitted[input_mat==0];rm(svd_fitted)}
 if(only_zero_entries!=TRUE){input_mat=svd_fitted;rm(svd_fitted)}
-#cell_type=unique(hic_df$cell)#qs::qread('cell_type.qs')
-rownames(input_mat)=unique(hic_df$cell)
 
+rownames(input_mat)=cell_type
+rm(hic_df)
 
 input_mat[input_mat<0]=0
 
 if(debias==TRUE){
 tmp_wide=data.frame(summarized_hic,t(input_mat))
+rm(summarized_hic)
+rm(input_mat)
 tmp_long <- melt( tmp_wide, id.vars = c("chrom","binA","binB"))
+rm(tmp_wide)
 colnames(tmp_long)=c("chrom","binA","binB","cell","count")
 tmp_df=tmp_long%>%mutate(diag=binB-binA)
-
+rm(tmp_long)
 hic_df_svd=tmp_df[,c(1:3,5,6,4)]
-
+rm(tmp_df)
   #log transformation for debiasing
   hic_df_svd=hic_df_svd%>%mutate(count=log(count+0.0001))
-  band_info <- hic_df_svd%>% group_by(chrom, diag, cell) %>% summarise(band_depth = mean(count))
-  alpha_j <- band_info %>% group_by(chrom, diag) %>% summarise(depth = mean(band_depth))
-  hic_df_svd <- hic_df_svd %>% left_join(alpha_j, by = c("chrom", "diag")) %>% left_join(band_info,
-                                                                                         by = c("chrom", "diag", "cell")) %>% mutate(count = count-band_depth +depth) %>% 
-    select(-c(band_depth, depth, count))
-  
-  
-
+  hic_df_svd = data.table(hic_df_svd)  
+  band_info <-hic_df_svd[,.(band_depth = mean(count)),by = .(chrom,diag,cell)]
+  alpha_j <- band_info[,.(depth = mean(band_depth)),by = .(chrom,diag)]
+  hic_df_svd <- hic_df_svd %>% left_join(alpha_j, by = c("chrom", "diag")) 
+  rm(alpha_j)    
+    
+hic_df_svd <- hic_df_svd %>% left_join(band_info,by = c("chrom", "diag", "cell")) %>% mutate(count = count-band_depth +depth) 
+  rm(band_info)    
+hic_df_svd <- hic_df_svd %>%select(-c(band_depth, depth))
 
 
 
@@ -201,8 +202,8 @@ for (i in 1:length(cell_names)) {
                                                                      binA, binB)]
   input_mat[i, ] = output_cell$count
 }
-
-
+rm(temp)
+rm(hic_df_svd)
 
 input_mat=exp(input_mat)
 
@@ -219,6 +220,8 @@ for(chr in 1:chr_num){
   print(chr)
   
 }
+rm(input_mat)
+rm(summarized_hic)
 
 
 
