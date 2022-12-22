@@ -21,7 +21,7 @@ setwd(dir_data)
 
 source(paste0(dir_functions,'/Muscle_functions.R'))
 
-pacman::p_load(abind,qs,reshape2,dplyr,rTensor,Matrix,data.table,foreach,inline,parallel,doParallel)
+pacman::p_load(abind,qs,reshape2,dplyr,rTensor,Matrix,data.table,foreach,inline,parallel,doParallel,gtools)
 
 
 cl <- makePSOCKcluster(4)
@@ -36,9 +36,12 @@ summarized_hic=qs::qread(paste0(dir_data,'/summarized_hic.qs'))
 
 #Comeback this part
 
+
 size<-fread(paste0(dir_data,'/',sizefile))
+size<-size[size$V1%in%chrlist,]
+size<-size[size$V1 %>% mixedorder,]
+
 binsize=1000000
-#tmpsize<-ceiling(mm9size$V2/1000000)
 dimlist=ceiling(size$V2[size$V1%in%chrlist]/binsize)
 
 #dimlist=readRDS('dimlist_mm9.rds')
