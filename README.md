@@ -7,7 +7,7 @@
 
 #### 1. Repository clone
 
-git clone https://github.com/kp223/Muscle.git
+git clone git@github.com:keleslab/Muscle.git
 
 -   R: [R installation](https://www.r-project.org)  (>=4.2.1)
 -   parallel (Not required, but highly recommended)
