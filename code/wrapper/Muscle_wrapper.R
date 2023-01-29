@@ -1,31 +1,3 @@
-# dir="/storage08/kwangmoon"
-# Rank=2
-# 
-# #modality="All"
-# modality="HiC"
-# #modality="HiC+CG"
-# 
-# #chr_num=23
-# chr_num=2
-# 
-# #Bulk_exist=TRUE
-# Bulk_exist=FALSE
-# 
-# tol=0.00001
-# maxiter=1
-
-# 
-# args = commandArgs(trailingOnly=TRUE)
-# 
-# ######
-# 
-# dir=as.character(args[1])
-# Rank=as.numeric(args[2])
-# modality=as.character(args[3])
-# chr_num=as.numeric(args[4])
-# Bulk_exist=as.logical(args[5])
-# tol=as.numeric(args[6])
-# maxiter=as.numeric(args[7])
 
 source("config_file_model.R")
 
@@ -39,9 +11,6 @@ pacman::p_load(Rcpp,RSpectra,qs,RColorBrewer)
 
 
 
-# dir_data=paste0(dir,"/data/example")
-# dir_functions=paste0(dir,"/code/functions")
-# dir_out=paste0(dir,"/R_analysis_result/example")
 
 system(paste0("mkdir -p ",dir_out))
 
@@ -63,8 +32,8 @@ if(Bulk_exist==TRUE){
   
   LR=c()
   for (i in c(1:22, "X")) {
-    #revisit
-    bulk_tad=read.table(paste0('/afs/cs.wisc.edu/p/keles/schic/volumeC/Kwangmoon/data/kim2020/insulation/bulk/Bulk2_chr',i,'.bedpe'))
+    
+    #bulk_tad=
     LR=c(LR,dim(bulk_tad)[1])}
   saveRDS(LR,paste0(dir_out,'/ntads.rds'))
   
@@ -83,7 +52,8 @@ if(modality=="HiC"){
     return(tmp)},as.list(1:chr_num))
     if(Bulk_exist==FALSE){
       dimlist=lapply(datatensor, function(x)dim(x)[1]) %>% unlist
-      LR=floor(dimlist/Rank)
+      #LR=floor(dimlist/Rank)
+       LR=floor(dimlist/10)
       saveRDS(LR,paste0(dir_out,'/ntads.rds'))
       
     }
@@ -98,12 +68,12 @@ if(modality=="All"|modality=="HiC+CG"){
     
     nonzeroind=Reduce("union",apply(tmp,3,function(x)which(rowMeans(x!=0)!=0)))
     tmp=tmp[nonzeroind,nonzeroind,]
-    #tmp=array(apply(tmp,3,naomit_tensor),dim=c(dim(naomit_tensor(tmp[,,1])),dim(tmp)[3]))
+    
     tmp=log(tmp+0.0001)
     return(array(apply(tmp,3,scalemat),dim=dim(tmp)))},as.list(1:chr_num))
   if(Bulk_exist==FALSE){
     dimlist=lapply(datatensor, function(x)dim(x)[1]) %>% unlist
-    LR=floor(dimlist/Rank)
+       LR=floor(dimlist/10)
     saveRDS(LR,paste0(dir_out,'/ntads.rds'))
     
   }

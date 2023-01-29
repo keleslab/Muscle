@@ -1,44 +1,19 @@
-# 
-# chr_num=20
-# dir='/storage08/kwangmoon'
-# exploration_rank=100
-# debias=FALSE
-# only_zero_entries=TRUE
-# ssh=NULL
-# sizefile='mm9.chrom.sizes'
-# 
-# 
-
-# 
-# 
-# args = commandArgs(trailingOnly=TRUE)
-# 
-# ######
-# 
-# chr_num=as.numeric(args[1])
-# dir=(args[2])
-# exploration_rank=as.numeric(args[3])
-# debias=as.logical(args[4])
-# only_zero_entries=as.logical(args[5])
-# ssh=as.character(args[6])
-# sizefile=as.character(args[7])
 
 
 source("config_file_preprocess.R")
 
 
 #######
-# dir_data=paste0(dir,"/data/example")
-# dir_functions=paste0(dir,"/code/functions")
+
 setwd(dir_data)
 
 saveRDS(chr_num,paste0(dir_data,'/chr_num.rds'))
 
-pacman::p_load(RSpectra,qs,reshape2,tidyverse,rTensor,Matrix,data.table,gtools)
+pacman::p_load(RSpectra,qs,reshape2,dplyr,rTensor,Matrix,data.table,gtools)
 options(scipen = 4)
 
 
-##################################3
+##################################
 
 hic_df=qs::qread(paste0(dir_data,'/hic_df.qs'))
 
@@ -62,7 +37,7 @@ if (band_select == "all"){
 
 cell_names = unique(hic_df$cell)
 input_mat = matrix(0, nrow = length(cell_names), ncol = nrow(summarized_hic))
-print(paste("The number of features is", nrow(summarized_hic)))
+
 for (i in 1:length(cell_names)) {
   output_cell = summarized_hic
   output_cell$count = 0
@@ -80,18 +55,12 @@ for (i in 1:length(cell_names)) {
 rm(temp)
 rm(output_cell)
 
-# qs::qsave(input_mat,'longform_hic.qs')
+
 qs::qsave(summarized_hic,'summarized_hic.qs')
-# 
-# 
-# input_mat=qs::qread('longform_hic.qs')
-# summarized_hic=qs::qread('summarized_hic.qs')
 
 
 
 svd_res=RSpectra::svds(input_mat,k = exploration_rank)
-#qs::qsave( svd_res,paste0(dir_data,'/svd_res_raw.qs'))
-# svd_res=qs::qread(paste0(dir_data,'/svd_res_raw.qs'))
 
 nn_sv=svd_res$d[svd_res$d>0]
 (nn_sv ) %>% log %>% plot
@@ -127,12 +96,11 @@ saveRDS(Rank,paste0(dir_data,'/Rank.rds'))
 
 
 
-# hic_df=qs::qread("Li2019.qs")
- cell_type=unique(hic_df$cell)#qs::qread('cell_type.qs')
+
+ cell_type=unique(hic_df$cell)
 
 
-# 
-# summarized_hic=qs::qread('summarized_hic.qs')
+
 
 
 
@@ -188,7 +156,7 @@ summarized_hic[is.na(agg_v), "agg_v"] =log(0.0001)
 
 cell_names = unique(hic_df_svd$cell)
 input_mat = matrix(log(0.0001), nrow = length(cell_names), ncol = nrow(summarized_hic))
-print(paste("The number of features is", nrow(summarized_hic)))
+
 for (i in 1:length(cell_names)) {
   output_cell = summarized_hic
   output_cell$count = log(0.0001)
