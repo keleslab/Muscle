@@ -4,8 +4,7 @@ source("config_file_model.R")
 ##########################################################
 
 
-
-pacman::p_load(RColorBrewer,MASS,Matrix,dplyr,cluster,rTensor,reshape2,Rcpp,foreach,inline,parallel,doParallel,RSpectra,qs)
+pacman::p_load(RColorBrewer,MASS,Matrix,dplyr,cluster,rTensor,reshape2,Rcpp,RcppArmadillo,foreach,inline,parallel,doParallel,RSpectra,qs)
 pacman::p_load(Rcpp,RSpectra,qs,RColorBrewer)
 
 
@@ -23,9 +22,16 @@ chr_num=as.numeric(readRDS(paste0(dir_data,'/chr_num.rds')))
 
 source(paste0(dir_functions,'/Muscle_functions.R'))
 
-invisible(capture.output(sourceCpp(paste0(dir_functions,'/multiply.cpp')), type = "message"))
+#invisible(capture.output(sourceCpp(paste0(dir_functions,'/multiply.cpp')), type = "message"))
 
-
+#err<-tryCatch(invisible(capture.output(sourceCpp(paste0(dir_functions,'/multiply.cpp')), type = "message")),
+#         error=function(e){return(1)})
+#if(length(err)==1){
+  
+#  inverse=function(x){return(chol2inv(chol(x)))}
+#  multiply=function(A,B){return(crossprod(t(A),B))}
+  
+#}
 
 
 if(Bulk_exist==TRUE){
@@ -169,7 +175,7 @@ Muscle=function(data,R,tol=0.001,maxiter=5,dir_out,dir_functions,chr_num=20,moda
     print(paste0("Module ",k," start"))
     
     #rank 1 update
-    tmp=rankone_Muscle(data=obj,k,LR=LR,tol=tol,maxiter=maxiter,dir_out=dir_out,dir_functions=dir_functions,chr_num,modality,ssh)
+    tmp=rankone_Muscle(data=obj,k,LR=LR,tol=tol,maxiter=maxiter,dir_out=dir_out,dir_functions=dir_functions,chr_num,modality,ssh,GNU)
     
     if(k==1){btd_res=tmp$btd_res;
     if(modality=="All"|modality=="HiC+CG"){
@@ -228,9 +234,3 @@ Muscle=function(data,R,tol=0.001,maxiter=5,dir_out,dir_functions,chr_num=20,moda
 set.seed(1)
 
 Muscle(datatensor,R=Rank,tol=tol,maxiter=maxiter,dir_out=dir_out,dir_functions = dir_functions,chr_num=chr_num,modality = modality,ssh)
-
-
-
-
-
-
