@@ -1,11 +1,10 @@
 
-
 #number of chromosomes (23(Human) or 20(Mouse))
 chr_num=20
 
 
 #directory of the data
-dir_data="{Muscle directory}/data/example"
+dir_data="{Muscle directory}/data/Liu2021"
 
 #directory of the functions
 dir_functions="{Muscle directory}/code/functions"
@@ -22,16 +21,18 @@ only_zero_entries=FALSE
 
 
 #If GNU parllel exists, type TRUE. Otherwise, FALSE. 
-GNU=TRUE
+GNU=FALSE
 
 
-#server names for gnu parallel. If exists, list them with comma without space. e.g., server01,server02
-#ssh=NULL
-ssh='hodor01,hodor02,hodor03'
+#server names for gnu parallel. 
+#If you are not using multiple servers for GNU parallel, leave it as ssh=NULL
+ssh=NULL
+
+#If multiple servers can be used, list them with comma without space. e.g., 'server01,server02'
+#ssh='server01,server02,server03'
 
 
 #chromosome size file name within the data directory.
-sizefile='mm10.chrom.sizes'
 #sizefile='mm9.chrom.sizes'
+sizefile='mm10.chrom.sizes'
 #sizefile='hg19.chrom.sizes'
-
