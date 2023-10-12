@@ -590,6 +590,3 @@ rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,ch
   
   
 } 
-
-
-
