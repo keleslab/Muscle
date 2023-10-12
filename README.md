@@ -38,6 +38,6 @@ install.packages('pacman')
 pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,RcppArmadillo,foreach,inline,parallel,doParallel,RSpectra,qs,gtools)
 ```
 
-Details about implementing codes can be found in the [Wiki page](https://github.com/kp223/Muscle/wiki) of this github. For the users with low memory or the users who wants to just check if Muscle works, we recommend to first try this [Li et al 2019 data tutorial](https://github.com/kp223/Muscle/wiki/Li-et-al-2019).
+Details about implementing codes can be found in the [Wiki page](https://github.com/keleslab/Muscle/wiki) of this github. For the users with low memory or the users who wants to just check if Muscle works, we recommend to first try this [Li et al 2019 data tutorial](https://github.com/keleslab/Muscle/wiki/Li-et-al-2019).
 
 In case you are already done with installing Muscle, you can direclty move onto section 2 of each of the Wiki pages.
