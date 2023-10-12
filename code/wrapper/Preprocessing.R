@@ -15,8 +15,13 @@ options(scipen = 4)
 
 ##################################
 
+
+cat("Reading in scHi-C data... \n")
+
 hic_df=qs::qread(paste0(dir_data,'/hic_df.qs'))
 
+
+cat("Reshaping the data matrix for Singular Value Decomposition... \n")
 mean_thres = 0
 var_thres = 0
 band_select = "all"
@@ -59,6 +64,9 @@ rm(output_cell)
 qs::qsave(summarized_hic,'summarized_hic.qs')
 
 
+
+
+cat("Conducting initial SVD... \n")
 
 svd_res=RSpectra::svds(input_mat,k = exploration_rank)
 
@@ -115,6 +123,9 @@ rm(hic_df)
 input_mat[input_mat<0]=0
 
 if(debias==TRUE){
+    
+cat("Debiasing started... (If the memory does not allow debiasing, set debias=FALSE in the config_file_preprocess.R file and run Muscle again)\n")    
+    
 tmp_wide=data.frame(summarized_hic,t(input_mat))
 rm(summarized_hic)
 rm(input_mat)
