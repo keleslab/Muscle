@@ -20,7 +20,7 @@ then go on to the next step. {Muscle directory} could be /Users/kp223/Muscle.
 For cloning the github repository, again on the cmd terminal, run the linux code 
 
 ```
-git clone https://github.com/kp223/Muscle.git
+git clone git@github.com:keleslab/Muscle.git
 ```
 
 For R, we need the requirements as below : 
