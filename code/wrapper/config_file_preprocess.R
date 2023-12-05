@@ -47,3 +47,11 @@ ssh=NULL
 #sizefile='mm9.chrom.sizes'
 sizefile='mm10.chrom.sizes'
 #sizefile='hg19.chrom.sizes'
+
+
+
+
+#binsize determines the resolution of the data (default=1000000)
+binsize=1000000
+
+
