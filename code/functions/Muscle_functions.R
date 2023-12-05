@@ -235,8 +235,8 @@ rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,ch
   ########################
   
   if(GNU==TRUE){
-    if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
-    if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
+    if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 8 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
+    if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 8 --workdir . Rscript ::: Initializer.R ::: ', which.tensors, ' ::: ',dir_out))
     }
 
   
@@ -408,8 +408,8 @@ rankone_Muscle=function(data,k,LR,tol=0.0001,maxiter=50,dir_out,dir_functions,ch
     
     #update mode A and B(symmetric)    
     if(GNU==TRUE){
-      if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
-      if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 4 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
+      if(!is.null(ssh))system(paste0('cd ',dir_functions,'; parallel -S ',ssh,' --jobs 8 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
+      if(is.null(ssh))system(paste0('cd ',dir_functions,'; parallel --jobs 8 --workdir . Rscript ::: ModeAB_learner.R ::: ', which.tensors, ' ::: ',dir_out))
     }
     
     
