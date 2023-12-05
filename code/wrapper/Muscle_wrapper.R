@@ -36,13 +36,13 @@ source(paste0(dir_functions,'/Muscle_functions.R'))
 
 if(Bulk_exist==TRUE){
   
-  LR=c()
-  for (i in c(1:22, "X")) {
+#  LR=c()
+#  for (i in c(1:22, "X")) {
     
     #bulk_tad=
-    LR=c(LR,dim(bulk_tad)[1])}
-  saveRDS(LR,paste0(dir_out,'/ntads.rds'))
-  
+#    LR=c(LR,dim(bulk_tad)[1])}
+#  saveRDS(LR,paste0(dir_out,'/ntads.rds'))
+LR=readRDS(paste0(dir_out,'/ntads.rds'))  
   
 }
 
@@ -91,7 +91,7 @@ if(modality=="All"|modality=="HiC+CG"){
   tmp=naomit_matrix(tmp)
   datatensor[['CG']]=apply(tmp,2,scalemat)
   
-  
+if(Rank_mCG==0){  
   svd_res=RSpectra::svds(datatensor[['CG']],k = exploration_rank)
   nn_sv=svd_res$d[svd_res$d>0]
   (nn_sv ) %>% log %>% plot
@@ -108,13 +108,15 @@ if(modality=="All"|modality=="HiC+CG"){
   
   
   
-  
-  
+
   cat("Please specify the mCG matrix rank value based on the singular value 'svd_mCG_plot.pdf' and hit enter (skipping will give rank=30) : ")
   Rank_mCG <- as.numeric(readLines(con="stdin", 1))
-  cat(Rank_mCG, "\n")
+  cat(Rank_mCG, "\n")        
+  if(is.na(Rank_mCG)){Rank_mCG=30}                   
+}
   
-  
+
+
   
   
   
@@ -124,6 +126,7 @@ if(modality=="All"){
   tmp=naomit_matrix(tmp)
   datatensor[['CH']]=apply(tmp,2,scalemat)
   
+if(Rank_mCH==0){  
   svd_res=RSpectra::svds(datatensor[['CH']],k = exploration_rank)
   nn_sv=svd_res$d[svd_res$d>0]
   (nn_sv ) %>% log %>% plot
@@ -144,6 +147,12 @@ if(modality=="All"){
   cat("Please specify the mCH matrix rank value based on the singular value 'svd_mCH_plot.pdf' and hit enter (skipping will give rank=30) : ")
   Rank_mCH  <- as.numeric(readLines(con="stdin", 1))
   cat(Rank_mCH, "\n")
+
+  if(is.na(Rank_mCH)){Rank_mCH=30}
+   } 
+    
+    
+    
   Rank=ceiling(mean(c(Rank,Rank_mCG,Rank_mCH)))
   
   
