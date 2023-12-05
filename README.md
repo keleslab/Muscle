@@ -35,7 +35,7 @@ In R, run those codes that download the required packages for running Muscle.
 
 ```
 install.packages('pacman')
-pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,RcppArmadillo,foreach,inline,parallel,doParallel,RSpectra,qs,gtools)
+pacman::p_load(MASS,Matrix,dplyr,rTensor,reshape2,Rcpp,RcppArmadillo,foreach,inline,furrr,purrr,parallel,doParallel,RSpectra,qs,gtools)
 ```
 
 Details about implementing codes can be found in the [Wiki page](https://github.com/keleslab/Muscle/wiki) of this github. For the users with low memory or the users who wants to just check if Muscle works, we recommend to first try this [Li et al 2019 data tutorial](https://github.com/keleslab/Muscle/wiki/Li-et-al-2019).
